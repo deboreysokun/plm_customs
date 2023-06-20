@@ -21,6 +21,8 @@
         'reports/report_purchase_order.xml',
         'reports/report_vendor_bill.xml',
         'reports/report_advance_expense_transport.xml',
+        'reports/report_expense_statement.xml',
+        'reports/landed_cost_report.xml',
         'reports/report_pro_forma_invoice.xml',
         'reports/report_quotation_sale.xml',
         'reports/report_tax_invoice_concrete.xml',

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <template id="landed_cost_report_document">
+             <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+<!--                        <div style="margin-top:10px;font-weight:bold">Sale</div>-->
+<!--                        <div style="border-bottom:3px solid black;"/>-->
+                        <div class="page">
+                            <div class="text-center" style="text-align:center;font-family:'Khmer OS';cursive;font-size:14px;">
+                                <h2>Landed Cost</h2>
+                            </div>
+                            <div style="padding-top:20px;">
+                                <table class="table table-borderless" style="font-size:14px; border-style: double; ">
+                                    <thead>
+                                        <tr style="font-family:'Khmer OS'; background:#F8F0E3">
+                                            <td class="text-center" style="text-center;border:1px solid black; width: 320px;border-right: 0px solid white; font-weight: bold;">
+                                                <div>Product</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:60px;border-right: 0px solid white; font-weight: bold;">
+                                                <div>Quantity</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:60px;border-right: 0px solid white; font-weight: bold;">
+                                                <div>Original Value</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; border-top:1px solid black;width:180px; font-weight: bold;">
+                                                <div>Additional Landed Cost</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; border-top:1px solid black;width:80px; font-weight: bold;">
+                                                <div>New Value</div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody">
+                                        <tr t-foreach="docs.valuation_adjustment_lines" t-as="line" style="page-break-inside:avoid">
+                                            <td class="text-center" style="width:130px; border:1px solid black;font-size:14px;">
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:130px; font-size:14px;">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:130px; font-size:14px;">
+                                                <span t-field="line.former_cost"/>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:130px; font-size:14px;">
+                                                <span t-field="line.additional_landed_cost"/>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:130px; font-size:14px;">
+                                                <span t-field="line.final_cost"/>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Customer and Vender Sign  -->
+                        <div style="page-break-inside:avoid;">
+                                <div class="row" style="margin-top:20px;font-weight:bold;">
+                                    <div class="col-3" style="font-size:14px;margin-top: 0px;">
+                                            <div class="text-center" style="font-family:'Arial';font-size:14px;margin-top: 12px;">រៀបចំដោយ</div>
+                                            <div class="text-center" style="margin-top:80px; font-size:14px">_______________________________</div>
+                                    </div>
+                                    <div class="col-6 text-center" style="font-size:14px;margin-top: 0px;"/>
+                                    <div class="col-3 text-center" style="font-size:14px;margin-top: 0px;">
+                                            <div style="font-family:'Arial';font-size:14px;margin-top: 12px;">ត្រួតពិនិត្យដោយ</div>
+                                            <div class="text-center" style="margin-top:80px; font-size:14px">_______________________________</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+
+         </template>
+    </data>
+</odoo>
