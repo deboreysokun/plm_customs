@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="stock_inventory_valuation_date_line_view_form" model="ir.ui.view">
+            <field name="name">stock.inventory.valuation.date.line.view.form.inherit</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="inherit_id" ref="stock.stock_inventory_line_tree"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//field[@name='inventory_date']" position="replace"> 
+                    <field name="inventory_date" attrs="{'readonly':False}" optional="show"/>
+                </xpath> -->
+                <field name="inventory_date" position="attributes">
+                    <attribute name="required">False</attribute>
+                    <attribute name="readonly">False</attribute>
+                </field>
+            </field>
+        </record>
+</odoo>

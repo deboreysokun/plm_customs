@@ -1,0 +1,37 @@
+<odoo>
+  <data>
+    <record id="view_landed_cost_filed_column" model="ir.ui.view">
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='valuation_adjustment_lines']/tree/field[@name='final_cost']" position="replace">             
+            </xpath>
+            <xpath expr="//field[@name='valuation_adjustment_lines']/tree/field[@name='additional_landed_cost']" position="after">
+                <field name="final_cost"/>
+            </xpath>
+        </field>
+    </record> 
+
+    <record id="list_view_landed_cost_inventory" model="ir.ui.view">
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="vendor_bill_id"/>
+                <field name="picking_ids" widget="many2many_tags"/>
+                <field name="amount_total" string="Total Cost"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="list_view_landed_cost_account_move" model="ir.ui.view">
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="vendor_bill_id"/>
+                <field name="picking_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

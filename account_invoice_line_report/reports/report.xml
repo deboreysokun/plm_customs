@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_invoice_tax_by_government" model="ir.actions.report">
+        <field name="name">Invoice Tax By Government(សរុបវិក័យប័ត្រមិនទាន់ទូទាត់-ពន្ធជាបន្ទុករដ្ធ)</field>
+        <field name="model">account.invoice.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_invoice_line_report.report_invoice_tax_by_government_document</field>
+        <field name="report_file">account_invoice_line_report.report_invoice_tax_by_government</field>
+        <field name="binding_model_id" ref="account.model_account_invoice_report"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+    <record id="report_invoice_tax" model="ir.actions.report">
+        <field name="name">Invoice Tax (សរុបវិក័យប័ត្រមិនទាន់ទូទាត់-ពន្ធ10%)</field>
+        <field name="model">account.invoice.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_invoice_line_report.report_invoice_tax_document</field>
+        <field name="report_file">account_invoice_line_report.report_invoice_tax</field>
+        <field name="binding_model_id" ref="account.model_account_invoice_report"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+    <record id="report_driver_expense" model="ir.actions.report">
+        <field name="name">Driver Expense (ប្រាក់ស៊ុប)</field>
+        <field name="model">account.invoice.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_invoice_line_report.report_driver_expense_document</field>
+        <field name="report_file">account_invoice_line_report.report_driver_expense</field>
+        <field name="binding_model_id" ref="account.model_account_invoice_report"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+
+    <record id="report_vendor_expense_statement" model="ir.actions.report">
+        <field name="name">Expense Statement by Vendor (ចំណាយតាមអ្នកផ្គត់ផ្គង់)</field>
+        <field name="model">account.invoice.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_invoice_line_report.report_vendor_expense_statement_document</field>
+        <field name="report_file">account_invoice_line_report.report_vendor_expense_statement</field>
+        <field name="binding_model_id" ref="account.model_account_invoice_report"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+    <record id="report_invoice_lines" model="ir.actions.report">
+        <field name="name">Invoice Lines (សរុបវិក័យប័ត្រមិនទាន់ទូទាត់)</field>
+        <field name="model">account.invoice.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_invoice_line_report.report_invoice_lines_document</field>
+        <field name="report_file">account_invoice_line_report.report_invoice_lines</field>
+        <field name="binding_model_id" ref="account.model_account_invoice_report"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+</odoo>

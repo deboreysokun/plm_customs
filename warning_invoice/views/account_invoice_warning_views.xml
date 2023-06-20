@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <record id="price_below_cost" model="ir.ui.view">
+      <field name="name">account.move.form</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@id='invoice_tab']//tree[1]">
+          <field name="price_below_cost" invisible="1"/>
+        </xpath>
+        <xpath expr="//page[@id='invoice_tab']//tree[1]" position="attributes">
+          <attribute name="decoration-danger">(price_below_cost)</attribute>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
+

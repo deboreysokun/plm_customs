@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="report_vehicle" model="ir.actions.report">
+            <field name="name">Vehicle Report</field>
+            <field name="model">truck.fuel.line</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">plm_truck_management.report_vehicle_history_document</field>
+            <field name="report_file">plm_truck_management.report_vehicle_history</field>
+            <field name="binding_model_id" ref="model_truck_fuel_line"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'Vehicle_'+(object.truck_id.name)</field>
+        </record>
+</odoo>

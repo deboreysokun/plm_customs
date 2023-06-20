@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	<report id="total_invoices_id"
+				string="Summary Expense"
+				model="account.move"
+				report_type="qweb-pdf"
+				file="summary_expense_template.journal_entry_template_report_view"
+				name="summary_expense_template.journal_entry_template_report_view"/>
+	<report id="journal_entry_report_id"
+				string="Total Invoice Not Yet Pay"
+				model="account.move"
+				report_type="qweb-pdf"
+				file="summary_expense_template.report_total_invoices_view"
+				name="summary_expense_template.report_total_invoices_view"/>
+									
+	</data>
+</odoo>

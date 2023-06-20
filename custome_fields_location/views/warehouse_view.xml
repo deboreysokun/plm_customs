@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <!-- Warehouse location for purchase -->
+        <record id="view_purchase_warehouse" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="picking_type_id" string="Warehouse"/>
+                </xpath>
+                <xpath expr="//field[@name='effective_date']" position="after">
+                    <field name="payment_term_id" string="Payment Term"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Warehouse location for Sale -->
+        <record id="view_sale_warehouse" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="warehouse_id" string="Warehouse"/>
+                </xpath>
+            </field>
+        </record> 
+
+        <!-- Hide sale type id from sale invoice select journal -->
+        <record id="hide_sale_type_id_account" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="sale_order_type.sot_invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_type_id']" position="replace">                    
+                </xpath>                
+            </field>
+        </record> 
+    </data>
+</odoo>

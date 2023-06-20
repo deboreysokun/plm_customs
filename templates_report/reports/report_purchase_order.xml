@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+        <template id="report_purchase_order_document">
+            <t t-call="web.html_container">
+               <t t-foreach="docs" t-as="o">
+                    <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"/>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <t t-raw="0"/>
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <div>
+                            <t t-raw="0"/>
+                            <div class="row header" style="font-size:18px;">
+                                <div class="col-2">
+                                    <!-- <img src="/account_invoice_line_report/static/description/plm_logo_polo.jpg" style="max-height:90px;" alt="Logo"/> -->
+                                </div>
+                                <div class="col-8" style="text-align:center;margin-top:10px;padding-top:15px;">
+                                    <div style="cursive; font-size:20px;font-family:'Khmer OS Moul';font-weight:bold;"><h2>ក្រុមហ៊ុន ភី.អិល.អិម អ៊ីមផត អិចផត</h2></div>
+                                    <div style="cursive; font-size:20px;font-family:'Khmer OS Moul'"><h3>P.L.M IMPORT EXPORT CO.,LID.</h3></div>
+                                    <div style="cursive; font-size:20px;font-family:'Khmer OS Moul'"><h5>លិខិតស្នើសុំ</h5></div>                                    
+                                </div>
+                                <div style="border-bottom:3px solid #000000; padding-top:5px;"/>
+                                <div class="col-3"/>
+                            </div>
+                        </div>
+
+                        <!-- <div style="border-bottom:3px solid #000000; margin-top:3px;"/> -->
+                        <div class="page">
+                            <div>
+                                
+                                <div class="text-center" style="font-size:14px;font-family:'Khmer OS Moul';magin-top:5px;padding-top:10px;">
+                                    <h6 style="font-size=16px;font-family:'Khmer OS Moul';">នាងខ្ញុំឈ្មោះ <span style="font-weight:bold;font-family:'Khmer OS Moul'" t-field="o.user_id.name"/> បំរើការងារនៅ ក្រុមហ៊ុន ភី.អិល.អិម អ៊ីមផត អិចផត </h6>                       
+                                </div>
+                                <div class="text-center" style="font-size:14px;font-family:'Khmer OS Moul';padding-top:5px;">
+                                    <h6 style="font-size=16px;font-family:'Khmer OS Moul';"><span style="font-weight:bold;">កម្មវត្ថុ:</span> ស្នើសុំ​​  <span t-field="o.notes"/> ពីក្រុមហ៊ុន <span style="font-weight:bold;" t-field="o.partner_id.name"/> ដូចមានរាយក្នុងតារាងខាងក្រោម:</h6>
+                                </div>
+                                <div class="text-center" style="font-size:14px;font-family:'Khmer OS Moul';padding-top:5px;">
+                                    <h6 style="font-size=16px;font-family:'Khmer OS Moul';">លេខយោងការស្នើ  <span style="font-weight:bold;" t-field="o.name"/></h6>
+                                </div>                 
+                            </div>
+                            <div style="border-bottom:3px solid white; margin-top:3px;"/>
+                            <table class="table table-borderless" style="font-size:16px;">
+                                <thead>
+                                    <tr style="font-family:'Khmer OS';">
+                                        <td class="text-center" style="border:1px solid black; width: 30px">
+                                            <div>ល.រ</div>
+                                            <div>No</div>
+                                        </td>
+
+                                        <td class="text-center" style="border:1px solid black; width:320px">
+                                            <div>បរិយាយ</div>
+                                            <div>Description</div>
+                                        </td>
+                                        
+                                        <td class="text-center" style="border:1px solid black; width:80px">
+                                            <div>ឯកតា</div>
+                                            <div>Unit</div>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black; width:80px">
+                                            <div>បរិមាណ</div>
+                                            <div>Qty</div>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;width:130px">
+                                            <div>តម្លៃរាយ</div>
+                                            <div>Unit Price</div>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;width:130px">
+                                            <div>តម្លៃសរុប</div>
+                                            <div>Amount</div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody class="invoice_tbody">
+                                    <tr t-foreach="o.order_line" t-as="line">
+                                        <td class="text-center" style="border:1px solid black;padding:5px;">
+                                            <span t-esc="line_index+1"/>
+                                        </td>
+                                        <td style="border:1px solid black;padding:5px;">
+                                                <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;padding:5px;">
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;padding:5px;">
+                                            <span t-field="line.product_qty"/>
+                                        </td>
+                                        
+                                        <td class="text-center" style="border:1px solid black;padding:5px;">
+                                            $ <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;padding:5px;">
+                                            <span>
+                                                <span class="text-nowrap" t-field="line.price_subtotal"/>
+                                            </span>
+                                        </td>
+                                    </tr>                                 
+                                    <tr style="page-break-inside:avoid">
+                                      
+                                        <td colspan="5" style="border:1px solid black;text-align:center;font-weight:bold;padding:5px;font-family:'Khmer OS Moul';">សរុប/Total</td>
+                                        <td class="text-center" style="border:1px solid black;font-weight:bold;padding:5px;font-size:16px;">                                           
+                                            <span t-field="o.amount_total"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="page-break-inside:avoid">                                  
+                                        <td colspan="6" style="text-align:right;font-weight:bold;padding:5px;font-family:'Khmer OS Moul';">កោះកុង  <span t-field="o.date_order"/></td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Customer and Vender Sign  -->
+                        <div style="page-break-inside:avoid;">
+                            <div style="page-break-inside:avoid;">
+                                <div class="row" style="margin-top:30px;font-weight:bold;">
+                                    <div class="col-4" style="font-size:14px;margin-top: 30px;">
+                                            <div class="text-center" style="font-family:'Khmer OS Moul';font-size:14px;margin-top: 18px;"><h6>បានឃើញនិងឯកភាព</h6></div>
+                                            <div class="text-center" style="font-family:'Khmer OS Moul';font-size:14px;margin-top: 18px;"><h6>នាយកគ្រប់គ្រង</h6></div>
+                                            <div style="font-size:14px"/>
+                                    </div>
+                                    
+                                    <div class="col-4 text-center" style="font-size:14px;margin-top: 30px;"/>
+                                    
+                                    <div class="col-4 text-center" style="font-size:14px;margin-top: 30px;">
+                                            <div style="font-family:'Khmer OS Moul';font-size:14px;margin-top: 18px;"><h6>ហត្ថលេខាអ្នកស្នើសុំ</h6></div>
+                                            <div style="font-size:14px"/>
+                                            <div style="font-size:14px;margin-top: 100px;"><h6><span t-field="o.user_id.name"/></h6></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="footer">
+                                <ul class="list-inline" style="text-align: right; font-size:12px">
+                                    <li>Page: <span class="page"/> of <span class="topage"/></li>
+                                </ul>
+                            </div>
+                        </div>                        
+                    </div>
+                      
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+

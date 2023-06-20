@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="group_user_create_product" model="res.groups">
+            <field name="name">Product Creation</field>
+        </record>
+
+        <record id="group_product_creation" model="ir.ui.view">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_update_quantity_on_hand']" position="attributes" >                                    
+                    <attribute name="groups">product_creation_access_right.group_user_create_product</attribute>                            
+                </xpath>                   
+                <xpath expr="//button[@name='659']" position="attributes" >                                    
+                    <attribute name="groups">product_creation_access_right.group_user_create_product</attribute>                            
+                </xpath>    
+            </field>
+        </record>
+    </data>
+</odoo>
+

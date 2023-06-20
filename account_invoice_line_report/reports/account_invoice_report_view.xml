@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 Tecnativa - Carlos Dauden
+     Copyright 2017 Tecnativa - João Marques
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_invoice_report_tree_info" model="ir.ui.view">
+        <field name="name">account.invoice.report.tree.info</field>
+        <field name="model">account.invoice.report</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Line">  
+
+                <field name="inv_date" />             
+                <field name="driver" optional="hide"/>        
+                <field name="move_id" string="Invoice Number"/>
+                <field name="partner_id" />
+                <field name="register_date" />
+                <field name="khr_register_rate" />
+                <field name="thb_register_rate" />             
+                <field name="product_id" />
+                <field name="label_name"/>
+                <field name="quantity"/>
+                <field name="amount_in_currency"/>
+                <field name="move_currency_id"/>
+                <field name="payment_refs"/>
+                <field name="price_unit_cus" string="Untax Unit Price"/>
+                <field name="price_average"/>
+                <field name="price_subtotal" />
+                <field name="sub_pricetotal"/>
+                <field name="payment_state"  widget="badge" decoration-danger="payment_state == 'not_paid'" decoration-warning="payment_state in ('partial', 'in_payment')" decoration-success="payment_state in ('paid', 'reversed')" attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"/>
+                <field name="product_categ_id" optional="hide"/>
+                <field name="company_currency_id" invisible="0" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search" />
+        <field name="arch" type="xml">
+            <field name="product_categ_id" position="after">
+                <separator />
+                <filter
+                    name="without_price"
+                    string="Without Price"
+                    domain="[('price_average','=', 0.0)]"
+                />
+                <filter
+                    name="with_price"
+                    string="With Price"
+                    domain="[('price_average','!=', 0.0)]"
+                />
+                <filter
+                    name="register_date"
+                    string="Register Date"
+                    date="register_date"
+                    context="{'group_by':'register_date'}"
+                />
+                <filter
+                    name="move_id"
+                    string="Inv/Bill Number"
+                    context="{'group_by':'move_id'}"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="action_account_invoice_line_report" model="ir.actions.act_window">
+        <field name="name">Invoice Lines</field>
+        <field name="res_model">account.invoice.report</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="search_view_id" ref="view_account_invoice_report_search" />
+        <field
+            name="help"
+        >From this report, you can have an overview of the amount invoiced to your customers. The search tool can also be used to personalise your Invoices reports and so, match this analysis to your needs.</field>
+    </record>
+    <menuitem
+        action="action_account_invoice_line_report"
+        id="menu_action_account_invoice_line_report"
+        parent="account.account_reports_management_menu"
+        sequence="25"
+    />
+</odoo>

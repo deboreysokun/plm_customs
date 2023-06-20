@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+        <template id="report_vehicle_history_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs.truck_id" t-as="o">
+                    <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"/>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <t t-raw="0"/>
+                        <t t-set="o" t-value="o.with_context(lang=lang)" />
+                        <div>
+                            <t t-raw="0"/>
+                            <div class="row" style="font-size:18px;">
+                                <div class="col-1">
+                                    <!-- <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:90px;" alt="Logo"/> -->
+                                </div>
+                                <div class="col-10" style="text-align:center;margin-top:10px;">
+                                    <div style="cursive; font-size:20px;">
+                                        <h2>POLO TRANSPORT</h2>
+                                        <h3 style="font-family:'Khmer OS';">របាយការណ៍ចំណូល​ប្រចាំខែ​ <span t-esc="datetime.datetime.now().strftime('%m-%Y')"/> </h3>
+                                    </div>
+
+                                    <div class="page">
+                                        <table class="table table-borderless" style="font-size:14px;">
+                                            <thead>
+                                                <tr>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Customer
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Vehicle
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Date
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Description
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Revenue
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Legal Fee
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;"> 
+                                                        <span>
+                                                            Commission Driver
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Fuel Quantity
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Fuel Cost
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span>
+                                                            Gross Profit
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>    
+                                                <tr t-foreach="docs" t-as="line" style="page-break-inside:avoid">
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-field="line.customer"> </span>
+                                                    </td> 
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-field="line.truck_id"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-field="line.date"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-field="line.description"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $ <span t-field="line.revenue"> </span>
+                                                    </td>
+                                                                                        
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $ <span t-field="line.legal"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $ <span t-field="line.commission"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-field="line.fuel_qty"> </span> L
+                                                    </td>
+
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-field="line.fuel_cost"> </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="line.gross_pro"> </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="border:1px solid black; width: 30px;border: 1px solid black;">  
+                                                        សរុប                                                      
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="sum(docs.mapped('revenue'))"> </span>
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="sum(docs.mapped('legal'))"> </span>
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="sum(docs.mapped('commission'))"> </span>
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        <span t-esc="sum(docs.mapped('fuel_qty'))"> </span>L
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="sum(docs.mapped('fuel_cost'))"> </span>
+                                                    </td>
+                                                    <td style="border:1px solid black; width: 30px;border: 1px solid black;">
+                                                        $<span t-esc="sum(docs.mapped('revenue')) - sum(docs.mapped('legal')) - sum(docs.mapped('commission')) -sum(docs.mapped('fuel_cost'))" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row" style="margin-top:50px;font-weight:bold;">
+                                        <div class="col-4 text-center" style="font-size:14px;margin-top: 30px;">                                       
+                                        </div>
+                                        <div class="col-4 text-center" style="font-size:14px;margin-top: 30px;">
+                                        </div>
+                                        <div class="col-4 text-center" style="font-size:14px;margin-top: 30px;">
+                                                <div style="font-family:'Khmer OS';font-size:14px;margin-top: 18px;">កោះកុងថ្ងៃទី<span t-esc="datetime.datetime.now().strftime('%d')"/>&#160;ខែ<span t-esc="datetime.datetime.now().strftime('%m')"/>&#160;ឆ្នាំ<span t-esc="datetime.datetime.now().strftime('%Y')"/>&#160;</div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:70px;font-weight:bold;">
+                                        <div class="col-6 text-center" style="font-size:14px;margin-top: 30px;">
+                                                <div style="font-family:'Khmer OS';font-size:14px;margin-top: 18px;">ត្រួតពិនិត្យដោយ</div>
+                                                <div style="font-size:14px;padding-top:40px;">_______________________________________</div>
+                                        </div>
+                                        <div class="col-6 text-center" style="font-size:14px;margin-top: 30px;">
+                                                <div style="font-family:'Khmer OS';font-size:14px;margin-top: 18px;">ធ្វើរបាយការណ៍ដោយ</div>
+                                                <div style="font-size:14px;padding-top:40px;">_______________________________________</div>
+                                        </div>             
+                                    </div>
+                                    <div class="footer">
+                                        <ul class="list-inline" style="text-align: right; font-size:12px">
+                                            <li>Page: <span class="page"/> of <span class="topage"/></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

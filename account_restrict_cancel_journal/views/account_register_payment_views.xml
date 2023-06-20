@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--Button tick for access right cancel journal -->
+    <record id="group_register_payment_invoice" model="res.groups">
+        <field name="name">Register Payment</field>
+    </record>
+
+    <!--Group user to Register Payment Customer&vendor Invoice-->
+    <record id="account_register_payment_inherit" model="ir.ui.view">
+        <field name="name">account.move.register.payment.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_register_payment']" position="attributes">
+                <attribute name="groups">account_restrict_cancel_journal.group_register_payment_invoice
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

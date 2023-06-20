@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="khmer_name_list_view">
+      <field name="name">res.partner.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+          <h1>
+              <field name="kh_name" placeholder="Khmer Name"/>
+          </h1>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

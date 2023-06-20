@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="group_user_sale_order_cancel_rule" model="res.groups">
+            <field name="name">Sales Order Cancel </field>
+        </record>
+        <record id="group_cancle_sale_order" model="ir.ui.view">
+            <field name="name">sale.order.cancel.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="attributes" >                                    
+                    <attribute name="attrs">{'invisible':['|',('delivery_state','=','done'),('state','=','cancel'),('state','=','sale')]}</attribute>                            
+                </xpath>                   
+                <xpath expr="//header" position="inside">
+                    <button name="action_cancel" type="object" string="Cancel"  attrs="{'invisible':[('delivery_state','in',('unprocessed','no','partially')),('state','in',('cancel','draft','sale'))]}" groups="sale_cancel_restric.group_user_sale_order_cancel_rule"/>
+                </xpath>  
+            </field>
+        </record>
+    </data>
+</odoo>

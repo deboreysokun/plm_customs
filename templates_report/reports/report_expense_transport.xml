@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+        <template id="report_transport_expense_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"/>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    
+                    <!-- Summary Expense -->
+                    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">   
+                        <t t-raw="0"/>
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <div>
+                            <t t-raw="0"/>
+                            <div class="row" style="font-size:18px;">
+                                <div class="col-2">
+                                </div>
+                                <div class="col-8" style="text-align:center;margin-top:10px;">
+                                    <div style="cursive; font-size:20px;font-family:'Moul';">
+                                        <h2>លឹម សោភ័ណ្ឌលក់សំភារៈសំណង់</h2>
+                                        <h5>លិខិតសុំបើកប្រាក់មុនពីបេឡាបំរុង</h5>
+                                    </div>
+                                    <div class="text-right" style="text-align:center;font-family:'Khmer OS';cursive;padding-top:20px;font-size:18px;font-weight:bold;">
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-3" style="text-align:left;padding-top:20px;margin-right:40px;"> 
+                                </div>
+                                 
+                            </div>
+                            <div class="text-center" style="font-weight:bold;">
+                                N0:<span t-esc="o.name"/>
+                            </div>
+                        </div>
+                        
+                        <div class="text-right" style="font-size:12px;">សំគាល់: (ទឹកប្រាក់ស្នើរមិនលើសពី $100.00)</div>
+                        <div style="border-bottom:3px solid black; margin-top:5px;"/>
+                        <div class="page">
+                            <div class="row mb-2" style="margin-top:20px;">
+                                <div class="col-8">
+                                    <table>
+                                        <thead>
+                                            <tr style="font-size:16px;">
+                                                <td colspan="3">ផ្នែក:</td>
+                                                <td colspan="2" style="text-align:right;padding-left:30px;margin-top:30px;padding-top:20px;font-weight:bold;">Transport</td>
+                                            </tr>
+                                            <tr/>
+                                            <tr style="font-size:16px; margin-top:20px;">
+                                                <td colspan="3">ទឹកប្រាក់ស្នើរសុំ:</td>
+                                                <td colspan="2" style="text-align:right;padding-left:40px;padding-top:20px;font-weight:bold;">	<span t-esc="'{0:,.0f}'.format(o.amount_total)"/> <span t-esc="o.currency_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                  <table>
+                                    <thead style="font-size:16px;">
+                                        <tr style="font-size:16px;">
+                                            <td>ថ្ងៃ ខែ ឆ្នាំ:</td>
+                                            <td/>
+                                            <td style="text-align:left;padding-left:30px;padding-top:20px;"><span t-field="o.invoice_date"/></td>
+                                        </tr>
+                                        <tr/>
+                                        <tr style="font-size:16px;">
+                                            <td>លេខគណនី:</td>
+                                            <td/>
+                                            <td style="text-align:left;padding-left:30px;padding-top:20px;">
+                                              <t t-foreach="o.invoice_line_ids" t-as="inv">
+                                                <span t-field="inv.account_id.code"/>
+                                              </t>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                  </table>
+                                </div>
+                            </div>
+                            <div>
+                                <tr style="font-size:14px;">
+                                    <td style="padding-top:20px;">បរិយាយនៃការស្នើរសុំ:</td>                                   
+                                </tr>
+                            </div>
+                            <div>
+                                <tr t-foreach="o.invoice_line_ids" t-as="line" style="font-size:16px;">
+                                    <td class="text-center" style="padding:5px;">
+                                        <span t-esc="line_index+1"/>
+                                    </td>
+                                    <td colspan="3" style="text-align:right;padding-right:30px;margin-top:30px;padding-top:20px;font-weight:bold;">
+                                      <span t-field="line.product_id.name"/>
+                                     
+                                    </td>
+                                    <td colspan="3" style="text-align:right;padding-right:30px;margin-top:30px;padding-top:20px;font-weight:bold;">
+                                      (<span t-field="line.name"/>)
+                                    </td>
+                                     <td colspan="6" style="text-align:left;padding-left:30px;padding-top:20px;"><span t-field="line.account_id.code"/></td>
+                                    <br/>
+                                </tr>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-8">
+                                    <table>
+                                        <thead>
+                                            <tr style="font-size:16px;padding-top:20px;">
+                                                <td colspan="3" style="margin-top:30px;padding-top:20px;">ស្នើរសុំដោយ:</td>
+                                                <td colspan="2" style="text-align:right;padding-left:10px;margin-top:30px;padding-top:20px;"><span t-esc="o.driver_names.name"/></td>
+                                            </tr>
+                                            <tr style="font-size:16px;">
+                                                <td colspan="3">ចេញលិខិតដោយ:</td>
+                                                <td colspan="2" style="text-align:right;padding-left:60px;padding-top:20px;"><span t-esc="o.invoice_user_id.name"/></td>
+                                            </tr>
+                                            <tr style="font-size:16px;">
+                                                <td colspan="3">អនុញ្ញាតដោយ:</td>
+                                                <td colspan="2" style="text-align:right;padding-left:60px;padding-top:20px;"><span t-esc="o.approver.name"/></td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                  <table>
+                                    <thead style="font-size:16px;">
+                                        
+                                        <div>
+                                          <tr style="font-size:16px;margin-top:30px;">
+                                              <td>ហត្ថលេខា</td>
+                                              
+                                              <td style="text-align:left;padding-left:30px;padding-top:20px;">___________________</td>
+                                          </tr>
+                                        </div>
+                                        <div>
+                                          <tr style="font-size:16px;margin-top:30px;">
+                                              <td>ហត្ថលេខា</td>
+                                              
+                                              <td style="text-align:left;padding-left:30px;padding-top:20px;">___________________</td>
+                                          </tr>
+                                        </div>
+                                        <div>
+                                          <tr style="font-size:16px;">
+                                              <td>ហត្ថលេខា</td>                              
+                                              <td style="text-align:left;padding-left:30px;padding-top:20px;">___________________</td>
+                                          </tr>
+                                        </div>
+                                    </thead>
+                                  </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
