@@ -17,6 +17,7 @@
     'version': '14.0.1.0.0',
     'depends': ['account','purchase'],
     'data': [
+        'reports/report.xml',
         'views/web.xml',
         'reports/report_purchase_order.xml',
         'reports/report_vendor_bill.xml',
@@ -25,6 +26,7 @@
         'reports/landed_cost_report.xml',
         'reports/report_pro_forma_invoice.xml',
         'reports/report_quotation_sale.xml',
+        'reports/report_quotation_sale_by_customer.xml',
         'reports/report_tax_invoice_concrete.xml',
         'reports/report_tax_invoice_by_government.xml',
         'reports/report_tax_invoice_commercial.xml',
@@ -33,7 +35,6 @@
         'reports/report_sale_invoice.xml',
         'reports/report_concrete_invoice.xml',
         'reports/report_transportation_invoice.xml',
-        'reports/report.xml',
     ],
     'demo': [],
 }

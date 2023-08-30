@@ -83,6 +83,17 @@
             <field name="print_report_name">'expense_statement_'+(object.partner_id.name)</field>
         </record>
 
+        <record id="action_A" model="ir.actions.report">
+            <field name="name">Daily Report By Customer</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">templates_report.report_a</field>
+            <field name="report_file">templates_report.sale_by_customer</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'sale_daily_'+(object.partner_id.name)</field>
+        </record>
+
         <record id="landed_cost_report" model="ir.actions.report">
             <field name="name">Landed Cost</field>
             <field name="model">stock.landed.cost</field>
