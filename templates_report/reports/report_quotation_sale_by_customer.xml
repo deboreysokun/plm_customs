@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <template id="report_a">
+             <t t-call="web.html_container">
+<!--                  <t t-foreach="docs" t-as="A">-->
+<!--                        <t t-set="cash_total" t-value=""/>-->
+<!--                        <t t-set="AR_total" t-value="0"/>-->
+                        <t t-if="not o" t-set="o" t-value="doc"/>
+                        <t t-if="o and 'company_id' in o">
+                            <t t-set="company" t-value="o.company_id"/>
+                        </t>
+                        <t t-if="not o or not 'company_id' in o">
+                            <t t-set="company" t-value="res_company"/>
+                        </t>
+                        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                            <t t-raw="0"/>
+<!--                            <t t-set="o" t-value="o.with_context(lang=lang)"/>-->
+                            <div>
+                                <t t-raw="0"/>
+                                <div class="row header" style="font-size:18px;">
+                                    <div class="col-2">
+                                        <!-- <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:90px;" alt="Logo"/> -->
+                                        <!-- <img src="/account_invoice_line_report/static/description/plm_logo_polo.jpg" style="max-height:90px;" alt="Logo"/> -->
+                                    </div>
+                                    <div class="col-8" style="text-align:center;margin-top:10px;padding-top:15px;">
+                                        <div style="cursive; font-size:20px;"><h2>LIM SORPHORN CONSTRUCTION</h2></div>
+                                        <!-- <div style="font-size:16px; font-family:'Khmer OS', "> អាស័យដ្ឋាន: <t t-esc="company.street"/><t t-esc="company.country_id.name"/></div> -->
+                                        <!-- <div style="font-size:14px;">Address: <t t-esc="company.street2"/>,<t t-esc="company.city"/><t t-esc="company.country_id.name"/></div> -->
+                                        <div style="font-size:16px;">
+                                            DAILY SALE BY CUSTOMER
+                                        </div>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            </div>
+
+                            <div style="border-bottom:3px solid #000000; margin-top:5px;"/>
+                            <div class="page">
+                                <table class="table table-borderless" style="font-size:14px;">
+                                    <thead>
+                                        <tr style="font-family:'Khmer OS';">
+                                            <td class="text-center" style="border:1px solid black; width: 30px">
+                                                <div>No</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:320px">
+                                                <div>Product Name</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:80px">
+                                                <div>Unit</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:80px">
+                                                <div>Invoice No</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black; width:80px">
+                                                <div>Qty</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black;width:130px">
+                                                <div>Unit Price</div>
+                                            </td>
+<!--                                            <td class="text-center" style="border:1px solid black;width:130px">-->
+<!--                                                <div>Rate</div>-->
+<!--                                            </td>-->
+                                            <td class="text-center" style="border:1px solid black;width:130px">
+                                                <div>Amount(USD)</div>
+                                            </td>
+                                            <td class="text-center" style="border:1px solid black;width:130px">
+                                                <div>Type</div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody">
+                                        <t t-set="cash_total" t-value="0"/>
+                                        <t t-set="ar_total" t-value="0"/>
+                                        <t t-foreach="customer.items()" t-as="l" style="page-break-inside:avoid">
+                                            <t t-set="cash_final" t-value="0"/>
+                                            <t t-set="customer_name" t-value="l[0]"/>
+                                            <t t-set="line" t-value="l[1]"/>
+                                            <tr>
+                                                <td colspan="7" style="width:100%;">
+                                                    <span t-esc="customer_name"/>
+                                                </td>
+                                            </tr>
+                                            <t t-foreach="line" t-as="order">
+                                                <t t-set="cash_final" t-value="cash_final+order.price_total"/>
+                                                <t t-if="order.move_id.payment_state=='paid'">
+                                                    <t t-set="cash_total" t-value="cash_total+order.price_total"/>
+                                                </t>
+                                                <t t-if="order.move_id.payment_state=='not_paid'">
+                                                    <t t-set="ar_total" t-value="ar_total+order.price_total"/>
+                                                </t>
+<!--                                                <t t-set="cash_total" t-value="0"/>-->
+<!--                                                <t t-set="cash_total" t-value="cash_total+order.price_total"/>-->
+                                                <tr>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span t-esc="order_index+1"/>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <t t-if="not order.product_id">
+                                                            <span t-field="order.name"/>
+                                                        </t>
+                                                        <t t-if="order.product_id">
+                                                            <span t-field="order.product_id.name"/>
+                                                            <t t-if="order.discount != 0.0">Discount:
+                                                                <span t-esc="order.discount"/>%
+                                                            </t>
+                                                        </t>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span t-field="order.product_uom_id"/>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span t-esc="order.move_id.name"/>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span t-field="order.quantity"/>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span>
+                                                            <span class="text-nowrap" t-field="order.price_unit"/>
+                                                        </span>
+                                                    </td>
+<!--                                                    <td class="text-center" style="border:1px solid black;padding:5px;">-->
+<!--                                                        <span>-->
+<!--                                                            <span class="text-nowrap"/>-->
+<!--                                                        </span>-->
+<!--                                                    </td>-->
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span>
+                                                            <span class="text-nowrap" t-field="order.price_total"/>
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center" style="border:1px solid black;padding:5px;">
+                                                        <span>
+                                                            <t t-if="order.move_id.payment_state=='paid'">
+                                                                Cash
+                                                            </t>
+                                                            <t t-if="order.move_id.payment_state=='not_paid'">
+                                                                A/R
+                                                            </t>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <tr style="page-break-inside:avoid">
+                                                <td colspan="6" style="text-align:right;font-size:16px;padding:5px;font-family:'Khmer OS';">Sub Total:</td>
+                                                <td colspan="2" class="text-center" style="border:1px solid black;font-size:16px;padding:5px;">
+    <!--                                                $ <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>-->
+                                                      <span t-esc="'{0:,.2f}'.format(cash_final)"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <table class="table table-borderless" style="font-size:14px;">
+                                    <tbody class="invoice_tbody">
+                                        <tr style="page-break-inside:avoid">
+                                            <td colspan="9" style="text-align:right;font-size:18px;padding:5px;font-family:'Khmer OS';">Total Cash:</td>
+                                            <td colspan="2" class="text-center" style="border:1px solid black;font-size:18px;padding:5px;">
+<!--                                                $ <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>-->
+                                                  <span t-esc="'{0:,.2f}'.format(cash_total)"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="page-break-inside:avoid">
+                                            <td colspan="9" style="text-align:right;font-size:18px;padding:5px;font-family:'Khmer OS';">Total A/R:</td>
+                                            <td colspan="2" class="text-center" style="border:1px solid black;font-size:18px;padding:5px;">
+<!--                                                $ <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>-->
+                                                  <span t-esc="'{0:,.2f}'.format(ar_total)"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="page-break-inside:avoid">
+                                            <td colspan="9" style="text-align:right;font-size:18px;padding:5px;font-family:'Khmer OS';"><b>Total Amount:</b></td>
+                                            <td colspan="2" class="text-center" style="border:1px solid black;font-size:18px;padding:5px;">
+<!--                                                $ <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>-->
+                                                  <span t-esc="'{0:,.2f}'.format(cash_total+ar_total)"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+<!--                </t>-->
+            </t>
+        </template>
+    </data>
+</odoo>
