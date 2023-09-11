@@ -30,6 +30,7 @@
                                         <div style="font-size:16px;">
                                             DAILY SALE BY CUSTOMER
                                         </div>
+                                        <div>Date:<t t-esc="date"/></div>
                                     </div>
                                     <div class="col-3"></div>
                                 </div>
